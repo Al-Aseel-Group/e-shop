@@ -11,9 +11,13 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::all();
+        $q = Category::query();
+        if($request->has('name')){
+            $q->where('name','LIKE',$request->name.'%');
+        }
+        $categories = $q->get();
         return response()->json([
             'data'=>$categories
         ]);
