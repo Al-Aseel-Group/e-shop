@@ -34,4 +34,10 @@ class Product extends Model
         return url('/');
     }
 
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
 }

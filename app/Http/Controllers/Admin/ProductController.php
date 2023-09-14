@@ -14,7 +14,7 @@ class ProductController extends Controller
      */
     public function index($category)
     {
-        $products = Product::where('category_id',$category)->get();
+        $products = Product::where('category_id',$category)->get()->load('category');
         return response()->json([
             'data'=>$products
         ]);
