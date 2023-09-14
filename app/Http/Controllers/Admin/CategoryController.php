@@ -8,13 +8,16 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
         $q = Category::query();
-        if($request->has('name')){
+
+
+        if(request()->has('name')){
             $q->where('name','LIKE',$request->name.'%');
         }
         $categories = $q->get();
