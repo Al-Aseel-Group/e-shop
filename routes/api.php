@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\User\AuthController;
 use App\Http\Middleware\EmailMiddleware;
 use Illuminate\Http\Request;
@@ -42,5 +43,8 @@ Route::prefix('admin')->group(function(){
     // Route::post('refresh', 'AuthController@refresh');
     Route::get('me', [AdminAuthController::class,'me']);
     Route::apiResource('category',CategoryController::class);
+    Route::get('category/{category}/product',[ProductController::class,'index']);
+    Route::apiResource('product',ProductController::class)->except('index');
+
 
 });
