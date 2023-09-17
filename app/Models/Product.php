@@ -40,4 +40,9 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function scopeGetActive()
+    {
+        return $this->where('qty', 0);
+    }
+
 }
