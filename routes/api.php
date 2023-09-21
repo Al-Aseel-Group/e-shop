@@ -3,11 +3,14 @@
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Upload;
 use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\User\ProductController as UserProductController;
+use App\Http\Middleware\AuthMiddleware;
 use App\Http\Middleware\EmailMiddleware;
+use App\Http\Middleware\Test;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,15 +28,15 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::post('auth/login', [AuthController::class,'login'])->middleware('api');
 Route::group([
 
-    'middleware' => 'api',
+    'middleware' => ['api',AuthMiddleware::class],
     'prefix' => 'auth'
 
 ], function () {
 
-    Route::post('login', [AuthController::class,'login']);
+
     // Route::post('refresh', 'AuthController@refresh');
     Route::get('me', [AuthController::class,'me']);
 
@@ -56,6 +59,6 @@ Route::prefix('admin')->group(function(){
     Route::apiResource('category',CategoryController::class);
     Route::get('category/{category}/product',[ProductController::class,'index']);
     Route::apiResource('product',ProductController::class)->except('index');
-
+    Route::post('upload',Upload::class);
 
 });

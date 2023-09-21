@@ -27,6 +27,12 @@ class ProductController extends Controller
     {
         $input = $request->validated();
 
+        // $image = $request->file('image_url')->store('public');
+        // $image = explode('/',$image)[1];
+
+        // $input['image_url']=$image;
+        $input['image_url']=//adfjlskdfjl;aksjdflkasdf.png;
+
         Product::create($input);
 
         return response()->json([

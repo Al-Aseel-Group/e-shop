@@ -31,7 +31,7 @@ class Product extends Model
 
     public function getBaseAttribute()
     {
-        return url('/');
+        return asset('storage/'.$this->image_url);
     }
 
 
