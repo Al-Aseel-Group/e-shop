@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\User\CartController;
+use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\User\ProductController as UserProductController;
 use App\Http\Middleware\EmailMiddleware;
 use Illuminate\Http\Request;
@@ -37,6 +38,8 @@ Route::group([
     Route::get('me', [AuthController::class,'me']);
 
     Route::apiResource('cart',CartController::class)->except('show');
+    Route::put('cart/{product}/remove',[CartController::class,'remove']);
+    Route::apiResource('order',OrderController::class)->except(['update','destroy']);
 
 });
 

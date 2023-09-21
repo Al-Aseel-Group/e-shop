@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Category;
+use App\Models\Order;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -28,11 +29,17 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        for($i =0;$i<=10;$i++){
-            Category::create([
-                'name'=>'category '.$i
-            ]);
-        }
+        // for ($i = 0; $i <= 10; $i++) {
+        //     Category::create([
+        //         'name' => 'category ' . $i
+        //     ]);
+        // }
 
+        Order::create([
+            'user_id'=>10,
+            'total'=>30,
+            'address'=>'sldjflaskjdfl',
+            'phone_number'=>'0944555666'
+        ]);
     }
 }

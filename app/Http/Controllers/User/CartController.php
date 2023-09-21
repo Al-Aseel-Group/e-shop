@@ -41,7 +41,7 @@ class CartController extends Controller
 
         $cartQty = $item->qty;
 
-        if($cartQty >= $item->product->qty)
+        if($cartQty > $item->product->qty)
         {
             return response()->json([
                 'message'=>'quantity not available'
@@ -75,6 +75,33 @@ class CartController extends Controller
         {
             return response()->json([
                 'message'=>'quantity not available'
+            ]);
+        }
+        $item->qty = $cartQty;
+        $item->save();
+        return response()->json([
+            'message'=>'quantity updated'
+        ]);
+    }
+
+    public function remove(Request $request,$id)
+    {
+        $input = $request->validate([
+            'qty'=>['required','numeric']
+        ]);
+
+        $item = Cart::where('product_id',$id)
+        ->where('user_id',auth()->id())->firstOrFail();
+
+        $cartQty = $item->qty - $request->qty;
+
+        // dd($cartQty);
+        if($cartQty <= 1)
+        {
+            $item->qty = 1;
+            $item->save();
+            return response()->json([
+                'message'=>'the minimum is 1'
             ]);
         }
         $item->qty = $cartQty;

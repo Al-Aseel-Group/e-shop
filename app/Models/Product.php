@@ -42,7 +42,7 @@ class Product extends Model
 
     public function scopeGetActive()
     {
-        return $this->where('qty', 0);
+        return $this->where('qty','!=',0);
     }
 
 }

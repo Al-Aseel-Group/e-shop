@@ -30,4 +30,11 @@ class Cart extends Model
         return $this->belongsTo(Product::class);
     }
 
+    public function decrease()
+    {
+        $this->product()->update([
+            'qty'=> $this->product->qty - $this->qty
+        ]);
+    }
+
 }
